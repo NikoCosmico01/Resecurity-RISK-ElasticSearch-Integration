@@ -10,10 +10,10 @@ conditions:
   kibana:
     version: ">=8.13.0"
 icons:
-  - src: /img/logo.png
-    title: "Resecurity logo"
-    size: "128x128"
-    type: "image/png"
+  - src: /img/imageResec.svg
+    title: "Resecurity Logo"
+    size: "200x200"
+    type: "image/svg+xml"
 policy_templates:
   - name: risk
     title: "Resecurity RISK"
@@ -26,10 +26,11 @@ policy_templates:
           - name: url
             type: text
             title: "Resecurity API base URL"
+            description: "Base URL for the Resecurity RISK API. Based on your Product you can also choose https://app.resecurity.com/api"
             multi: false
             required: true
             show_user: true
-            default: "https://app.resecurity.com/api"
+            default: "https://risk.resecurity.com/api"
           - name: api_key
             type: password
             title: "API key"
