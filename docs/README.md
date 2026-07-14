@@ -1,9 +1,9 @@
 # Resecurity RISK
 
-The Resecurity RISK integration collects threat intelligence from the
-[Resecurity RISK](https://www.resecurity.com/) REST API. It ships 4 data streams:
+The Resecurity RISK integration collects Threat Intelligence from the
+[Resecurity RISK](https://www.resecurity.com/) REST API. It ships 4 Data Streams:
 
-| Data stream | Source endpoint | Search term |
+| Data stream | Source Endpoint | Search Term |
 |---|---|---|
 | Alert | `GET /alert/index` | optional |
 | IOC | `GET /ioc/index` | not supported |
@@ -12,46 +12,45 @@ The Resecurity RISK integration collects threat intelligence from the
 
 ## Requirements
 
-You need a Resecurity RISK API key. Resecurity's API authenticates with an `Authorization: Basic`
-header containing only the **base64-encoded API key** — no username/password pair, no separator.
-Enter your key in the "API key" field of the integration policy; leave everything else as
-configured by default unless your Resecurity tenant uses a non-default host.
+You need a Resecurity RISK API key. Resecurity's API Authenticates with an `Authorization: Basic`
+Header containing only the **base64-encoded API key**.
+Enter your key in the "API key" field of the Integration Policy; make sure you have the corrected URL selected based on your purchased product (in can either be "risk" or "app").
 
-## Breach and Dark Web require a search term
+## Breach and Dark Web require a Search Term
 
-Unlike Alert and IOC, the Breach and Dark Web endpoints do not support listing all records — the
-upstream API requires a search phrase (for example a company domain, brand name, or email
-address to monitor). Configure this in the "Search query" field when adding the Breach or Dark
-Web data stream. To monitor multiple terms, add multiple instances of the data stream, one per
+Unlike Alert and IOC, the Breach and Dark Web Endpoints do NOT support listing all records. The
+upstream API requires a search Phrase (for example a Company Domain, Brand Name, or Email
+Address to monitor). Configure this in the "Search Query" field when adding the Breach or Dark
+Web Data Stream. To monitor multiple terms, add multiple instances of the Data Stream, one per
 term.
 
-## Known limitation: no incremental collection
+## Known Limitation: no incremental collection
 
 None of the 4 Resecurity RISK endpoints used by this integration expose a "since timestamp"
-filter. Every poll re-walks pages from the start rather than fetching only new records. To bound
+filter. Every poll re-walks pages from the start rather than fetching only New Records. To bound
 the work done per poll, each data stream has a `max_pages_per_poll` setting (default 10). Document
 IDs are derived from the source record's own `id` field, so re-ingesting the same record on a
-later poll overwrites the existing document rather than creating a duplicate — but if your feed
-has more genuinely new records per interval than `max_pages_per_poll * 100` (the API's default
+later poll Overwrites the existing document rather than creating a Duplicate — but if your feed
+has more genuinely New Records per interval than `max_pages_per_poll * 100` (the API's default
 page size), increase `max_pages_per_poll` or shorten `interval` to keep up.
 
-## Data streams
+## Data Streams
 
 ### Alert
 
-Threat intelligence alerts — subject, content, category, confidence/risk scores, TLP status,
+Threat Intelligence Alerts — subject, content, category, confidence/risk scores, TLP status,
 associated threat actors, geography, and any embedded IOC or TTP detail.
 
 ### IOC
 
-Indicators of compromise — malware name, file hashes (MD5/SHA-256), detection ratio, and dates.
+Indicators of Compromise — malware name, file hashes (MD5/SHA-256), detection ratio, and dates.
 
 ### Breach
 
-Individual leaked-credential records (email, username, password/password hash) plus the breach
+Individual Leaked-Credential Records (email, username, password/password hash) plus the breach
 source's metadata (name, category, attack vector, compromised data types, geography).
 
 ### Dark Web
 
-Dark web / underground-forum posts matching your search term — actor, category, country,
+Dark Web / underground-forum Posts matching your search term — actor, category, country,
 language, title, snippet, and source URL.
