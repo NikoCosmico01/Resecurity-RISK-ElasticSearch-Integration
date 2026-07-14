@@ -1,0 +1,28 @@
+title: "Resecurity Dark Web"
+type: logs
+dataset: resecurity_risk.dark_web
+streams:
+  - input: cel
+    template_path: cel.yml.hbs
+    title: "Collect Resecurity Dark Web mentions"
+    description: "Collect dark web / underground-forum posts from the Resecurity RISK API. Requires a search term."
+    vars:
+      - name: search_query
+        type: text
+        title: "Search query"
+        description: "Required search phrase, e.g. a brand, domain, or username to monitor. The Dark Web API does not support listing all records."
+        required: true
+        show_user: true
+      - name: interval
+        type: text
+        title: "Collection interval"
+        default: "1h"
+        required: true
+        show_user: true
+      - name: max_pages_per_poll
+        type: integer
+        title: "Max pages per poll"
+        description: "The Dark Web API has no incremental/date filter, so each poll re-walks pages from the start. This bounds how many pages are fetched per interval."
+        default: 10
+        required: true
+        show_user: true
