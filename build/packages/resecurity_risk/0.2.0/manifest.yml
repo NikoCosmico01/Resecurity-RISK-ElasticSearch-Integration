@@ -10,10 +10,10 @@ conditions:
   kibana:
     version: ">=8.13.0"
 icons:
-  - src: /img/logo.png
-    title: "Resecurity logo"
-    size: "128x128"
-    type: "image/png"
+  - src: /img/imagesResec.svg
+    title: "Resecurity Logo"
+    size: "200x200"
+    type: "image/svg+xml"
 policy_templates:
   - name: risk
     title: "Resecurity RISK"
