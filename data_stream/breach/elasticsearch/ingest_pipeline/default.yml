@@ -22,6 +22,7 @@ processors:
       field: source.collect_date
       target_field: '@timestamp'
       formats:
+        - ISO8601
         - UNIX
       if: ctx.source != null && ctx.source.collect_date != null
       ignore_failure: true
@@ -29,6 +30,7 @@ processors:
       field: source.add_date
       target_field: '@timestamp'
       formats:
+        - ISO8601
         - UNIX
       if: ctx['@timestamp'] == null && ctx.source != null && ctx.source.add_date != null
       ignore_failure: true
@@ -136,6 +138,7 @@ processors:
       field: source.add_date
       target_field: resecurity.breach.source.add_date
       formats:
+        - ISO8601
         - UNIX
       if: ctx.source != null && ctx.source.add_date != null
       ignore_failure: true
@@ -143,6 +146,7 @@ processors:
       field: source.collect_date
       target_field: resecurity.breach.source.collect_date
       formats:
+        - ISO8601
         - UNIX
       if: ctx.source != null && ctx.source.collect_date != null
       ignore_failure: true

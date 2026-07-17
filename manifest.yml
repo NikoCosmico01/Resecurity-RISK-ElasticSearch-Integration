@@ -1,7 +1,7 @@
 format_version: 3.0.2
 name: resecurity_risk
 title: "Resecurity RISK"
-version: 0.2.0
+version: 0.4.0
 description: "Collect Threat Intelligence Alerts, Indicators of Compromise, Data Breaches, and Dark Web mentions from the Resecurity RISK REST API."
 type: integration
 categories:

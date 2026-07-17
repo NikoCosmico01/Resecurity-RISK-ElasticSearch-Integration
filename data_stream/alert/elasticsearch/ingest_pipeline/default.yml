@@ -22,9 +22,13 @@ processors:
       field: updated_at
       target_field: '@timestamp'
       formats:
+        - ISO8601
         - UNIX
       if: ctx.updated_at != null
       ignore_failure: true
+  - remove:
+      field: updated_at
+      ignore_missing: true
   - set:
       field: event.risk_score
       copy_from: risk_score
@@ -51,6 +55,10 @@ processors:
   - rename:
       field: category.name
       target_field: resecurity.alert.category.name
+      ignore_missing: true
+  - remove:
+      field: category
+      if: ctx.category instanceof Map && ctx.category.isEmpty()
       ignore_missing: true
   - rename:
       field: confidence_score
@@ -86,13 +94,17 @@ processors:
       if: ctx.resecurity?.alert?.tags != null
       processor:
         trim:
-          field: _value
+          field: _ingest._value
       ignore_failure: true
-  - append:
-      field: tags
-      value: "{{{resecurity.alert.tags}}}"
+  - foreach:
+      field: resecurity.alert.tags
       if: ctx.resecurity?.alert?.tags != null
-      allow_duplicates: false
+      processor:
+        append:
+          field: tags
+          value: "{{{_ingest._value}}}"
+          allow_duplicates: false
+      ignore_failure: true
   - split:
       field: threat_actors
       separator: ","
@@ -107,17 +119,21 @@ processors:
       if: ctx.resecurity?.alert?.threat_actors != null
       processor:
         trim:
-          field: _value
+          field: _ingest._value
       ignore_failure: true
   - rename:
       field: for_splunk.email
       target_field: resecurity.alert.for_splunk.email
       ignore_missing: true
-  - append:
-      field: related.ip
-      value: "{{{for_splunk.ip}}}"
+  - foreach:
+      field: for_splunk.ip
       if: ctx.for_splunk?.ip != null
-      allow_duplicates: false
+      processor:
+        append:
+          field: related.ip
+          value: "{{{_ingest._value}}}"
+          allow_duplicates: false
+      ignore_failure: true
   - remove:
       field: for_splunk
       ignore_missing: true

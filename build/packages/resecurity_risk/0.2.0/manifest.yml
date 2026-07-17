@@ -26,10 +26,11 @@ policy_templates:
           - name: url
             type: text
             title: "Resecurity API base URL"
+            description: "Base URL for the Resecurity RISK API. Based on your Product you can also choose https://app.resecurity.com/api"
             multi: false
             required: true
             show_user: true
-            default: "https://app.resecurity.com/api"
+            default: "https://risk.resecurity.com/api"
           - name: api_key
             type: password
             title: "API key"

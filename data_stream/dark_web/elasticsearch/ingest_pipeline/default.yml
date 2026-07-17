@@ -22,6 +22,7 @@ processors:
       field: timestamp
       target_field: '@timestamp'
       formats:
+        - ISO8601
         - UNIX
       if: ctx.timestamp != null
       ignore_failure: true
