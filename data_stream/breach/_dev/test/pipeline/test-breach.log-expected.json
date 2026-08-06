@@ -96,7 +96,10 @@
             "resecurity_risk": {
                 "breach": {
                     "email": "minimal@example.com",
-                    "id": 7324
+                    "id": 7324,
+                    "source": {
+                        "is_imported": true
+                    }
                 }
             },
             "user": {
@@ -126,6 +129,7 @@
                     "source": {
                         "add_date": "2016-10-31T10:15:10.000Z",
                         "id": 9,
+                        "is_imported": true,
                         "name": "example_breach_source_no_collect_date"
                     }
                 }
